@@ -1,0 +1,26 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: worker-config
+data:
+  EMPLOYEE_TABLE_NAME: "cs3-nca-employees"
+  EMPLOYEE_PASSWORD_TABLE_NAME: "cs3-nca-employee-passwords"
+  AWS_REGION: "eu-central-1"
+  EC2_INSTANCE_TYPE: "t3.micro"
+  AMI_SSM_PARAMETER: "/aws/service/ami-amazon-linux-latest/al2023-ami-kernel-default-x86_64"
+  INSTANCE_PROFILE_PREFIX: "employee-profile"
+  IAM_MANAGED_POLICY_ARN: "arn:aws:iam::aws:policy/AmazonSSMManagedInstanceCore"
+  JOB_TTL_SECONDS: "300"
+  JOB_ACTIVE_DEADLINE_SECONDS: "900"
+  JOB_BACKOFF_LIMIT: "0"
+  JOB_SERVICE_ACCOUNT: "job-worker-sa"
+  DIRECTORY_ID: "d-99674198e9"
+  RDP_INITIAL_DELAY_SECONDS: "60"
+  RDP_MAX_RETRIES: "10"
+  RDP_RETRY_DELAY_SECONDS: "15"
+  EC2_SUBNET_ID: "subnet-0dfe8d5be71fddf31"
+  EC2_SECURITY_GROUP_ID: "sg-079b9be6f110c0ab7"
+  SNS_TOPIC_ARN: "arn:aws:sns:eu-central-1:288761763515:cs3-nca-onboarding-notifications"
+  WORKSPACES_DIRECTORY_ID: "d-99674198e9"
+  WORKSPACES_BUNDLE_ID: "wsb-gk1wpk43z"
+  WORKSPACES_SUBNET_IDS: "subnet-020c05c9ddb4354f9,subnet-02e608ced5e035512"

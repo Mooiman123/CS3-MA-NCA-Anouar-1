@@ -1,0 +1,168 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: job-controller
+  labels:
+    app: job-controller
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: job-controller
+  template:
+    metadata:
+      labels:
+        app: job-controller
+    spec:
+      serviceAccountName: job-controller-sa
+      containers:
+        - name: job-controller
+          image: 288761763515.dkr.ecr.eu-central-1.amazonaws.com/cs3-job-controller:latest
+          imagePullPolicy: Always
+          envFrom:
+            - secretRef:
+                name: ad-bind-credentials
+          env:
+            - name: AWS_REGION
+              valueFrom:
+                configMapKeyRef:
+                  name: worker-config
+                  key: AWS_REGION
+
+            - name: SQS_QUEUE_URL
+              value: "https://sqs.eu-central-1.amazonaws.com/288761763515/cs3-nca-onboarding-queue"
+
+            - name: JOB_WORKER_IMAGE
+              value: "288761763515.dkr.ecr.eu-central-1.amazonaws.com/cs3-job-worker:latest"
+
+            - name: EMPLOYEE_TABLE_NAME
+              valueFrom:
+                configMapKeyRef:
+                  name: worker-config
+                  key: EMPLOYEE_TABLE_NAME
+
+            - name: EMPLOYEE_PASSWORD_TABLE_NAME
+              valueFrom:
+                configMapKeyRef:
+                  name: worker-config
+                  key: EMPLOYEE_PASSWORD_TABLE_NAME
+
+            - name: EC2_INSTANCE_TYPE
+              valueFrom:
+                configMapKeyRef:
+                  name: worker-config
+                  key: EC2_INSTANCE_TYPE
+
+            - name: AMI_SSM_PARAMETER
+              valueFrom:
+                configMapKeyRef:
+                  name: worker-config
+                  key: AMI_SSM_PARAMETER
+
+            - name: INSTANCE_PROFILE_PREFIX
+              valueFrom:
+                configMapKeyRef:
+                  name: worker-config
+                  key: INSTANCE_PROFILE_PREFIX
+
+            - name: IAM_MANAGED_POLICY_ARN
+              valueFrom:
+                configMapKeyRef:
+                  name: worker-config
+                  key: IAM_MANAGED_POLICY_ARN
+
+            - name: DIRECTORY_ID
+              valueFrom:
+                configMapKeyRef:
+                  name: worker-config
+                  key: DIRECTORY_ID
+
+            - name: JOB_TTL_SECONDS
+              valueFrom:
+                configMapKeyRef:
+                  name: worker-config
+                  key: JOB_TTL_SECONDS
+
+            - name: JOB_ACTIVE_DEADLINE_SECONDS
+              valueFrom:
+                configMapKeyRef:
+                  name: worker-config
+                  key: JOB_ACTIVE_DEADLINE_SECONDS
+
+            - name: JOB_BACKOFF_LIMIT
+              valueFrom:
+                configMapKeyRef:
+                  name: worker-config
+                  key: JOB_BACKOFF_LIMIT
+
+            - name: RDP_INITIAL_DELAY_SECONDS
+              valueFrom:
+                configMapKeyRef:
+                  name: worker-config
+                  key: RDP_INITIAL_DELAY_SECONDS
+
+            - name: RDP_MAX_RETRIES
+              valueFrom:
+                configMapKeyRef:
+                  name: worker-config
+                  key: RDP_MAX_RETRIES
+
+            - name: RDP_RETRY_DELAY_SECONDS
+              valueFrom:
+                configMapKeyRef:
+                  name: worker-config
+                  key: RDP_RETRY_DELAY_SECONDS
+
+            - name: JOB_SERVICE_ACCOUNT
+              valueFrom:
+                configMapKeyRef:
+                  name: worker-config
+                  key: JOB_SERVICE_ACCOUNT
+
+            - name: EC2_SUBNET_ID
+              valueFrom:
+                configMapKeyRef:
+                  name: worker-config
+                  key: EC2_SUBNET_ID
+
+            - name: EC2_SECURITY_GROUP_ID
+              valueFrom:
+                configMapKeyRef:
+                  name: worker-config
+                  key: EC2_SECURITY_GROUP_ID
+
+            - name: SNS_TOPIC_ARN
+              valueFrom:
+                configMapKeyRef:
+                  name: worker-config
+                  key: SNS_TOPIC_ARN
+
+            - name: WORKSPACES_DIRECTORY_ID
+              valueFrom:
+                configMapKeyRef:
+                  name: worker-config
+                  key: WORKSPACES_DIRECTORY_ID
+
+            - name: WORKSPACES_BUNDLE_ID
+              valueFrom:
+                configMapKeyRef:
+                  name: worker-config
+                  key: WORKSPACES_BUNDLE_ID
+
+            - name: WORKSPACES_SUBNET_IDS
+              valueFrom:
+                configMapKeyRef:
+                  name: worker-config
+                  key: WORKSPACES_SUBNET_IDS
+
+            # IRSA fix
+            - name: AWS_STS_REGIONAL_ENDPOINTS
+              value: "regional"
+
+          resources:
+            limits:
+              cpu: "250m"
+              memory: "256Mi"
+            requests:
+              cpu: "100m"
+              memory: "128Mi"

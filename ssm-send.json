@@ -1,0 +1,1 @@
+{"Parameters":{"commands":["Import-Module ActiveDirectory","$u=\"Admin@org.innovatech.com\"","$p=ConvertTo-SecureString \"Welkom99!!\" -AsPlainText -Force","$cred=New-Object System.Management.Automation.PSCredential($u,$p)","Get-ADDomain -Credential $cred | Select-Object Name,NetBIOSName","whoami"]},"DocumentName":"AWS-RunPowerShellScript","InstanceIds":["i-034f27ba77c9a100d"]}

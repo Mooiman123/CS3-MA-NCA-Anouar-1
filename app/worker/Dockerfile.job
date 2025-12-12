@@ -1,0 +1,12 @@
+# Use AWS public ECR mirror to avoid Docker Hub DNS issues
+FROM public.ecr.aws/docker/library/python:3.11-slim
+
+# Schakel buffering uit zodat logs direct zichtbaar zijn
+ENV PYTHONUNBUFFERED=1
+
+WORKDIR /app
+
+COPY job_worker.py .
+RUN pip install boto3 kubernetes ldap3
+
+CMD ["python", "-u", "job_worker.py"]

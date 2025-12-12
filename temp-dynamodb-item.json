@@ -1,0 +1,17 @@
+{
+    "email":  {
+                  "S":  "testuser3@innovatech.com"
+              },
+    "status":  {
+                   "S":  "CREATED"
+               },
+    "employeeId":  {
+                       "S":  "75fa1f41-4234-48f2-956d-5734b8029b09"
+                   },
+    "name":  {
+                 "S":  "Test User"
+             },
+    "department":  {
+                       "S":  "HR"
+                   }
+}

@@ -1,0 +1,1 @@
+{"Parameters":{"commands":["Import-Module ActiveDirectory","Get-ADUser -Filter * | Select-Object Name,DistinguishedName,Enabled | Sort-Object Name | Select-Object -First 40"]},"DocumentName":"AWS-RunPowerShellScript","InstanceIds":["i-034f27ba77c9a100d"]}

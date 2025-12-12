@@ -1,0 +1,1 @@
+{"Parameters":{"commands":["whoami","net localgroup \"Remote Desktop Users\"","net localgroup Administrators"]},"DocumentName":"AWS-RunPowerShellScript","InstanceIds":["i-0ee224b3863d1986d"]}

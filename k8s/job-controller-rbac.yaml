@@ -1,0 +1,21 @@
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: job-controller-role
+rules:
+  - apiGroups: ["batch"]
+    resources: ["jobs"]
+    verbs: ["create", "get", "list"]
+
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: job-controller-binding
+subjects:
+  - kind: ServiceAccount
+    name: job-controller-sa
+roleRef:
+  kind: Role
+  name: job-controller-role
+  apiGroup: rbac.authorization.k8s.io

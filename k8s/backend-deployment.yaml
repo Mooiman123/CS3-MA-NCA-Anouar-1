@@ -1,0 +1,50 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: backend
+  labels:
+    app: backend
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: backend
+  template:
+    metadata:
+      labels:
+        app: backend
+    spec:
+      serviceAccountName: backend-sa
+      containers:
+        - name: backend
+          image: 288761763515.dkr.ecr.eu-central-1.amazonaws.com/cs3-backend:latest
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 8000
+          env:
+            - name: AWS_REGION
+              value: "eu-central-1"
+
+            - name: AWS_DEFAULT_REGION
+              value: "eu-central-1"
+
+            - name: EMPLOYEE_TABLE_NAME
+              value: "cs3-nca-employees"
+
+            - name: EMPLOYEE_PASSWORD_TABLE_NAME
+              value: "cs3-nca-employee-passwords"
+
+            - name: SQS_QUEUE_URL
+              value: "https://sqs.eu-central-1.amazonaws.com/288761763515/cs3-nca-onboarding-queue"
+
+            # IRSA en STS fix
+            - name: AWS_STS_REGIONAL_ENDPOINTS
+              value: "regional"
+
+          resources:
+            limits:
+              cpu: "300m"
+              memory: "512Mi"
+            requests:
+              cpu: "150m"
+              memory: "256Mi"
