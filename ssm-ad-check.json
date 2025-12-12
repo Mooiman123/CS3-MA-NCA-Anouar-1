@@ -1,1 +1,0 @@
-{"Parameters":{"commands":["Get-WmiObject Win32_ComputerSystem | Select-Object Domain,PartOfDomain","whoami","Test-ComputerSecureChannel","nltest /dsgetdc:org.innovatech.com"]},"DocumentName":"AWS-RunPowerShellScript","InstanceIds":["i-034f27ba77c9a100d"]}

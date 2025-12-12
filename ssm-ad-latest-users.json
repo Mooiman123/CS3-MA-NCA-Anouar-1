@@ -1,1 +1,0 @@
-{"Parameters":{"commands":["Import-Module ActiveDirectory","Get-ADUser -Filter * -Properties whenCreated -SearchBase \"OU=Users,OU=innovatech,DC=org,DC=innovatech,DC=com\" | Sort-Object whenCreated -Descending | Select-Object -First 5 Name,SamAccountName,whenCreated"]},"DocumentName":"AWS-RunPowerShellScript","InstanceIds":["i-034f27ba77c9a100d"]}
